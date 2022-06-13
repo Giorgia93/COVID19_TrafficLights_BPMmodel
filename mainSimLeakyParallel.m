@@ -33,7 +33,7 @@ reltrans_AL = [[0.9, 0.8, 0.7, 0.4]]; %[[0.9, 0.8, 0.7, 0.4]]; %
 
 % Vaccine efficacy against transmission, disease and death. Baseline = 'high' [0.7, 0.5, 0.8]
 VE2_levels = ["high"]; % ["high", "low"]
-VE2 = [[0.7, 0.5, 0.8]; [0.5, 0.4, 0.8]]; % [[0.7, 0.5, 0.8]; [0.5, 0.4, 0.8]]
+VE2 = [[0.7, 0.5, 0.8]]; % [[0.7, 0.5, 0.8]; [0.5, 0.4, 0.8]]
 
 % Contact tracing capacity. Baseline = 100
 trace_capacity = [100]; % [100, 250]
@@ -227,33 +227,28 @@ disp(append('Simulations ended: ', datestr(now, 'hh:mm')))
 
 %------------------------------- PLOTS ------------------------------------
 if plot_timeseries == true
-    scenariofolder = "sensitivity_VE";
-    scenario = "F";
-    tol = "high";
-    border = "high";
-    date = "20211128";
-    daily_inf = table2array(readtable(append('results/timeseries/', scenariofolder, '/dailyinf_scenario', ...
+    scenario = "B";
+    tol = "medium";
+    border = "low";
+    date = today; %"20220427";
+    daily_inf = table2array(readtable(append('results/timeseries/dailyinf_scenario', ...
         scenario, '_', tol, 'tol_', date, '.csv')));
-    daily_cases = table2array(readtable(append('results/timeseries/', scenariofolder, '/dailycases_scenario', ...
+    daily_cases = table2array(readtable(append('results/timeseries/dailycases_scenario', ...
         scenario, '_', tol, 'tol_', date, '.csv')));
-    daily_hosp =table2array(readtable(append('results/timeseries/', scenariofolder, '/dailyhosp_scenario', ...
+    daily_hosp =table2array(readtable(append('results/timeseries/dailyhosp_scenario', ...
         scenario, '_', tol, 'tol_', date, '.csv')));
-    cumul_deaths = table2array(readtable(append('results/timeseries/', scenariofolder, '/cumuldeaths_scenario', ...
+    cumul_deaths = table2array(readtable(append('results/timeseries/cumuldeaths_scenario', ...
         scenario, '_', tol, 'tol_', date, '.csv')));
-    hosp_beds = table2array(readtable(append('results/timeseries/', scenariofolder, '/hospbeds_scenario', ...
+    hosp_beds = table2array(readtable(append('results/timeseries/hospbeds_scenario', ...
         scenario, '_', tol, 'tol_', date, '.csv')));
-    %     TTIQeff_hist = table2array(readtable(append('results/timeseries/', scenariofolder, '/TTIQeffhistory_scenario', ...
+    %     TTIQeff_hist = table2array(readtable(append('results/timeseries/TTIQeffhistory_scenario', ...
     %         scenario, '_', tol, 'tol_', date, '.csv')));
     TTIQeff_hist = [];
-    AL_hist = table2array(readtable(append('results/timeseries/', scenariofolder, '/ALhistory_scenario', ...
+    AL_hist = table2array(readtable(append('results/timeseries/ALhistory_scenario', ...
         scenario, '_', tol, 'tol_', date, '.csv')));
     
-    
-    
-    
     plotSimLeakyTimeseries2(AL_hist, daily_cases, daily_hosp, cumul_deaths, hosp_beds, TTIQeff_hist, scenario, tol, border)
-    
-    
+        
 end
 
 
